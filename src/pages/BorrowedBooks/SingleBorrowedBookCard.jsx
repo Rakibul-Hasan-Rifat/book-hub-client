@@ -1,18 +1,7 @@
 const SingleBorrowedBookCard = ({ book, handleReturn }) => {
 
-    
-
-    // useEffect(() => {
-    //     fetch(`http://localhost:5000/books/${book.book._id}/details`)
-    //         .then(res => res.json())
-    //         .then(result => console.log(result))
-    //         .catch(err => console.log(err))
-    // }, [book?.book?._id])
-
-
-    const { _id: borrowedBookId,borrow_date, return_date } = book;
+    const { _id: borrowedBookId, borrow_date, return_date } = book;
     const { _id, img_url, title, category } = book.book;
-
 
     return (
         <div className="flex flex-col items-center justify-between p-6 rounded-lg shadow-lg border">

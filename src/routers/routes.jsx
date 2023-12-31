@@ -18,7 +18,7 @@ const router = createBrowserRouter(
       <Route
         path="/"
         element={<Home />}
-        loader={() => fetch('http://localhost:5000/bookTypes')}
+        loader={() => fetch('https://book-hub-server-9lco.onrender.com/bookTypes')}
       />
       <Route
         path="/login"
@@ -35,17 +35,17 @@ const router = createBrowserRouter(
       <Route
         path="/books/:id/details"
         element={<PrivateRoutes><BookDetails /></PrivateRoutes>}
-        loader={({ params }) => fetch(`http://localhost:5000/books/${params.id}/details`)}
+        loader={({ params }) => fetch(`https://book-hub-server-9lco.onrender.com/books/${params.id}/details`)}
       />
       <Route
         path="/books/:id/update"
         element={<PrivateRoutes><UpdateBook /></PrivateRoutes>}
-        loader={() => fetch('http://localhost:5000/bookTypes')}
+        loader={() => fetch('https://book-hub-server-9lco.onrender.com/bookTypes')}
       />
       <Route
         path="/books/:type"
         element={<PrivateRoutes><BooksOfSameType /></PrivateRoutes>}
-        loader={({ params }) => fetch(`http://localhost:5000/books/${params.type}`)}
+        loader={({ params }) => fetch(`https://book-hub-server-9lco.onrender.com/books/${params.type}`)}
       />
       <Route
         path="/addBook"

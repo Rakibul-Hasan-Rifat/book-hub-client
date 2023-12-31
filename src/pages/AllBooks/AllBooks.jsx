@@ -1,4 +1,3 @@
-// import { useLoaderData } from "react-router-dom"
 import { DNA } from "react-loader-spinner";
 import { UserAuthContext } from "../../context/UserAuthProvider.jsx";
 import SingleBookCard from "./SingleBookCard.jsx";
@@ -10,14 +9,14 @@ const AllBooks = () => {
   const { user } = useContext(UserAuthContext)
 
   useEffect(() => {
-    fetch(`http://localhost:5000/books?email=${user.email}&name=rakib`, { credentials: 'include' })
+    fetch(`http://localhost:5000/books?email=${user.email}`, { credentials: 'include' })
       .then(res => res.json())
       .then(result => setBooks(result))
       .catch(err => console.log(err))
   }, [user])
 
   const handleFilter = () => {
-    fetch('http://localhost:5000/books/availableBooks')
+    fetch('https://book-hub-server-9lco.onrender.com/books/availableBooks')
       .then(res => res.json())
       .then(data => setBooks(data))
       .catch(err => console.log(err))

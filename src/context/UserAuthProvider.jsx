@@ -2,6 +2,7 @@ import auth from '../firebase/firebaseConfig';
 import { createContext, useEffect, useState } from "react";
 import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut } from "firebase/auth"
 import { githubProvider, googleProvider } from "../firebase/firebaseProviders";
+import toast from 'react-hot-toast';
 
 export const UserAuthContext = createContext();
 
@@ -39,10 +40,11 @@ const UserAuthProvider = ({ children }) => {
 
         const unSubscribe = onAuthStateChanged(auth, (loggedInUser) => {
             setUser(loggedInUser);
+            setLoading(false);
             if (loggedInUser) {
-                fetch('http://localhost:5000/jwt', {
-                    method: 'POST',
+                fetch('https://book-hub-server-9lco.onrender.com/jwt', {
                     credentials: 'include',
+                    method: 'POST',
                     headers: {
                         "Content-Type": "application/json"
                     },
@@ -51,8 +53,12 @@ const UserAuthProvider = ({ children }) => {
                     .then(res => res.json())
                     .then(result => console.log(result))
                     .catch(err => console.log(err))
+            } else if(!loggedInUser) {
+                fetch('https://book-hub-server-9lco.onrender.com/logout', {credentials: 'include', method: 'POST'})
+                    .then(res => res.json())
+                    .then(result => toast.success(result.message))
+                    .catch(err => console.log(err))
             }
-            setLoading(false);
         })
 
         return () => {

@@ -6,7 +6,8 @@ import toast, { Toaster } from "react-hot-toast";
 
 const BookDetails = () => {
 
-    const params = useParams()
+    const params = useParams();
+    console.log('params', params);
     const loadedBookDetails = useLoaderData();
     let [bookCount, setBookCount] = useState(loadedBookDetails.quantity)
     const { user } = useContext(UserAuthContext)
@@ -24,7 +25,9 @@ const BookDetails = () => {
         const borrowingUser = { name: user.displayName, email: user.email };
         const borrowedBook = loadedBookDetails;
 
-        fetch('http://localhost:5000/borrows', {
+        e.target.reset()
+
+        fetch('https://book-hub-server-9lco.onrender.com/borrows', {
             method: 'POST',
             headers: {
                 "Content-Type": "application/json"
@@ -43,9 +46,9 @@ const BookDetails = () => {
                     console.log('before reducing', bookCount)
                     setBookCount(--bookCount)
                     console.log('after reducing', bookCount)
-                    fetch(`http://localhost:5000/books/${params?.id}/update?email=${user.email}`, {
-                        credentials: 'include',
-                        method: 'PUT',
+                    fetch(`https://book-hub-server-9lco.onrender.com/books/${params?.id}/update?email=${user.email}`, {
+                        // credentials: 'include',
+                        method: 'PATCH',
                         headers: {
                             "Content-Type": "application/json"
                         },
@@ -59,7 +62,10 @@ const BookDetails = () => {
                                 toast.success('You have borrowed the book successfully!!')
                             )
                         })
-                        .catch(err => toast.error(err))
+                        .catch(err => {
+                            console.log('my custom error')
+                            toast.error(err)
+                        })
                 }
                 result.message && toast(result.message)
             })
@@ -68,8 +74,6 @@ const BookDetails = () => {
                 toast.error(err);
                 document.getElementById('close_btn').click();
             })
-
-        e.target.reset()
     }
 
     return (
@@ -90,7 +94,7 @@ const BookDetails = () => {
                         </span>
                         <ReactStars
                             count={5}
-                            value={rating}
+                            value={parseInt(rating)}
                             isHalf={true}
                             size={36}
                             readOnly={true}

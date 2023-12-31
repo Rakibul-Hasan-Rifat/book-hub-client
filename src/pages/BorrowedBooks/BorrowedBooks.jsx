@@ -12,14 +12,14 @@ const BorrowedBooks = () => {
     const [data, setData] = useState([]);
 
     useEffect(() => {
-        fetch(`http://localhost:5000/books/borrowedBooks?email=${user.email}`)
+        fetch(`https://book-hub-server-9lco.onrender.com/books/borrowedBooks?email=${user.email}`)
             .then(res => res.json())
             .then(result => setData(result))
             .catch(err => console.log(err))
     }, [user.email])
 
     const handleReturn = (id, borrowedBookId) => {
-        fetch(`http://localhost:5000/books/${id}/details`)
+        fetch(`https://book-hub-server-9lco.onrender.com/books/${id}/details`)
             .then(res => res.json())
             .then(result => {
                 bookCount = result.quantity
@@ -33,9 +33,9 @@ const BorrowedBooks = () => {
         })
             .then((willDelete) => {
                 if (willDelete) {
-                    fetch(`http://localhost:5000/books/${id}/update?email=${user.email}`, {
+                    fetch(`https://book-hub-server-9lco.onrender.com/books/${id}/update?email=${user.email}`, {
                         credentials: 'include',
-                        method: 'PUT',
+                        method: 'PATCH',
                         headers: {
                             "Content-Type": "application/json"
                         },
@@ -46,7 +46,7 @@ const BorrowedBooks = () => {
                         .then(res => res.json())
                         .then(result => {
                             result.acknowledged && (
-                                fetch(`http://localhost:5000/unBorrow/${borrowedBookId}`, { method: 'DELETE' })
+                                fetch(`https://book-hub-server-9lco.onrender.com/unBorrow/${borrowedBookId}`, { method: 'DELETE' })
                                     .then(res => res.json())
                                     .then(result => {
                                         console.log(result)
@@ -60,9 +60,9 @@ const BorrowedBooks = () => {
                             )
                         })
                         .catch(err => toast.error(err))
-                    swal("Return is successful!", {
-                        icon: "success",
-                    });
+                    // swal("Return is successful!", {
+                    //     icon: "success",
+                    // });
                 } else {
                     swal("Book is not returned!");
                 }
