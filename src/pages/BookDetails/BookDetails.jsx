@@ -27,7 +27,7 @@ const BookDetails = () => {
 
         e.target.reset()
 
-        fetch('https://book-hub-server-9lco.onrender.com/borrows', {
+        fetch('https://book-hub-server-lilac.vercel.app/borrows', {
             method: 'POST',
             headers: {
                 "Content-Type": "application/json"
@@ -46,9 +46,9 @@ const BookDetails = () => {
                     console.log('before reducing', bookCount)
                     setBookCount(--bookCount)
                     console.log('after reducing', bookCount)
-                    fetch(`https://book-hub-server-9lco.onrender.com/books/${params?.id}/update?email=${user.email}`, {
-                        // credentials: 'include',
-                        method: 'PATCH',
+                    fetch(`https://book-hub-server-lilac.vercel.app/books/${params?.id}/update?email=${user.email}`, {
+                        credentials: 'include',
+                        method: 'PUT',
                         headers: {
                             "Content-Type": "application/json"
                         },

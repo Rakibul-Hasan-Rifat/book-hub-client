@@ -21,7 +21,7 @@ const AddBook = () => {
             short_description: description.value
         }
 
-        fetch(`http://localhost:5000/addBook?email=${user.email}`, {
+        fetch(`https://book-hub-server-lilac.vercel.app/addBook?email=${user.email}`, {
             credentials: 'include',
             method: 'POST',
             headers: {

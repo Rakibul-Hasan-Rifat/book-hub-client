@@ -12,14 +12,14 @@ const BorrowedBooks = () => {
     const [data, setData] = useState([]);
 
     useEffect(() => {
-        fetch(`https://book-hub-server-9lco.onrender.com/books/borrowedBooks?email=${user.email}`)
+        fetch(`https://book-hub-server-lilac.vercel.app/books/borrowedBooks?email=${user.email}`)
             .then(res => res.json())
             .then(result => setData(result))
             .catch(err => console.log(err))
     }, [user.email])
 
     const handleReturn = (id, borrowedBookId) => {
-        fetch(`https://book-hub-server-9lco.onrender.com/books/${id}/details`)
+        fetch(`https://book-hub-server-lilac.vercel.app/books/${id}/details`)
             .then(res => res.json())
             .then(result => {
                 bookCount = result.quantity
@@ -33,9 +33,9 @@ const BorrowedBooks = () => {
         })
             .then((willDelete) => {
                 if (willDelete) {
-                    fetch(`https://book-hub-server-9lco.onrender.com/books/${id}/update?email=${user.email}`, {
+                    fetch(`https://book-hub-server-lilac.vercel.app/books/${id}/update?email=${user.email}`, {
                         credentials: 'include',
-                        method: 'PATCH',
+                        method: 'PUT',
                         headers: {
                             "Content-Type": "application/json"
                         },
@@ -46,7 +46,7 @@ const BorrowedBooks = () => {
                         .then(res => res.json())
                         .then(result => {
                             result.acknowledged && (
-                                fetch(`https://book-hub-server-9lco.onrender.com/unBorrow/${borrowedBookId}`, { method: 'DELETE' })
+                                fetch(`https://book-hub-server-lilac.vercel.app/unBorrow/${borrowedBookId}`, { method: 'DELETE' })
                                     .then(res => res.json())
                                     .then(result => {
                                         console.log(result)
@@ -59,10 +59,10 @@ const BorrowedBooks = () => {
                                     .catch(err => toast.error(err))
                             )
                         })
-                        .catch(err => toast.error(err))
-                    // swal("Return is successful!", {
-                    //     icon: "success",
-                    // });
+                        .catch(err => {
+                            console.log(err.message)
+                            toast.error(err.message)
+                        })
                 } else {
                     swal("Book is not returned!");
                 }

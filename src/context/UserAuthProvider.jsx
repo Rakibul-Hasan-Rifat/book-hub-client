@@ -42,7 +42,7 @@ const UserAuthProvider = ({ children }) => {
             setUser(loggedInUser);
             setLoading(false);
             if (loggedInUser) {
-                fetch('https://book-hub-server-9lco.onrender.com/jwt', {
+                fetch('https://book-hub-server-lilac.vercel.app/jwt', {
                     credentials: 'include',
                     method: 'POST',
                     headers: {
@@ -53,8 +53,8 @@ const UserAuthProvider = ({ children }) => {
                     .then(res => res.json())
                     .then(result => console.log(result))
                     .catch(err => console.log(err))
-            } else if(!loggedInUser) {
-                fetch('https://book-hub-server-9lco.onrender.com/logout', {credentials: 'include', method: 'POST'})
+            } else if (!loggedInUser) {
+                fetch('https://book-hub-server-lilac.vercel.app/logout', { credentials: 'include', method: 'POST' })
                     .then(res => res.json())
                     .then(result => toast.success(result.message))
                     .catch(err => console.log(err))

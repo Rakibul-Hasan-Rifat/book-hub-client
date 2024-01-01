@@ -9,14 +9,14 @@ const AllBooks = () => {
   const { user } = useContext(UserAuthContext)
 
   useEffect(() => {
-    fetch(`http://localhost:5000/books?email=${user.email}`, { credentials: 'include' })
+    fetch(`https://book-hub-server-lilac.vercel.app/books?email=${user.email}`, { credentials: 'include' })
       .then(res => res.json())
       .then(result => setBooks(result))
       .catch(err => console.log(err))
   }, [user])
 
   const handleFilter = () => {
-    fetch('https://book-hub-server-9lco.onrender.com/books/availableBooks')
+    fetch('https://book-hub-server-lilac.vercel.app/books/availableBooks')
       .then(res => res.json())
       .then(data => setBooks(data))
       .catch(err => console.log(err))

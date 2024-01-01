@@ -12,7 +12,7 @@ const UpdateBook = () => {
     console.log(loadedCategories, params.id, user.email, updatingBook)
 
     useEffect(() => {
-        fetch(`https://book-hub-server-9lco.onrender.com/books/${params?.id}/details`)
+        fetch(`https://book-hub-server-lilac.vercel.app/books/${params?.id}/details`)
             .then(res => res.json())
             .then(book => setUpdatingBook(book))
             .catch(err => {
@@ -29,7 +29,7 @@ const UpdateBook = () => {
         const rating = e.target.rating.value;
         console.log('updating btn clicked', imgUrl, bookName, author, category, rating)
 
-        fetch(`https://book-hub-server-9lco.onrender.com/books/${params?.id}/update?email=${user.email}`, {
+        fetch(`https://book-hub-server-lilac.vercel.app/books/${params?.id}/update?email=${user.email}`, {
             credentials: 'include',
             method: 'PUT',
             headers: {
